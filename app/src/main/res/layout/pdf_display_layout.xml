@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/pdf"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="6dp"
+    android:background="#fcfbfb"
+    android:orientation="horizontal"
+    android:padding="5dp"
+    android:paddingBottom="2dp">
+
+    <ImageView
+        android:id="@+id/pdf_logo"
+        android:layout_width="45dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/pdf_icon" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="5dp"
+        android:layout_toRightOf="@+id/pdf_logo"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/pdfname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/check"
+            android:paddingTop="10dp"
+            android:textColor="#040404"
+            android:textSize="16dp" />
+
+        <ImageView
+            android:id="@+id/check"
+            android:layout_width="23dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:background="#ff6347"
+            app:srcCompat="@drawable/ic_action_done"
+            android:visibility="visible" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/pdfname"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/pdfsize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#343434"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:textColor="#343434"
+                android:textSize="15dp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="#ffffff" />
+</RelativeLayout>

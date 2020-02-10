@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">PDF Maker</string>
+    <string name="action_cancle">Cancel</string>
+    <string name="action_delete">Delete</string>
+    <string name="crop_image_menu_crop">Crop</string>
+    <string name="crop_image_menu_rotate_right">Rotate</string>
+    <string name="ef_camera">CAMERA</string>
+    <string name="ef_content_desc_folder">Folder</string>
+    <string name="ef_content_desc_image">Image</string>
+    <string name="ef_done">DONE</string>
+    <string name="ef_gif">GIF</string>
+    <string name="ef_msg_empty_images">No images found</string>
+    <string name="ef_ok">OK</string>
+    <string name="app_name1">Image To PDF Converter</string>
+    <string name="cancel">Cancel</string>
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
+    <string name="high">High</string>
+    <string name="low">Low</string>
+    <string name="medium">Medium</string>
+    <string name="nocompresssion">No Compression</string>
+    <string name="ok">Ok</string>
+    <string name="confirm">ok</string>
+
+</resources>
