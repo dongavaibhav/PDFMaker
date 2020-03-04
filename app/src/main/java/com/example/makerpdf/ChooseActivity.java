@@ -13,10 +13,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.esafirm.imagepicker.features.ImagePicker;
-import com.esafirm.imagepicker.features.ReturnMode;
-import com.esafirm.imagepicker.model.Image;
-import com.esafirm.rximagepicker.RxImagePicker;
+import com.nguyenhoanglam.imagepicker.model.Config;
+import com.nguyenhoanglam.imagepicker.model.Image;
+import com.nguyenhoanglam.imagepicker.ui.imagepicker.ImagePicker;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -24,21 +23,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import rx.Observable;
-
 public class ChooseActivity extends AppCompatActivity {
 
     public Button camBtn;
     public Button gallaryBtn;
-    boolean isExclude = true;
-    boolean isMenuClicked = false;
-    boolean isSingleMode;
-    boolean useCustomImageLoader;
-    public static ArrayList<Image> images;
-    boolean returnAfterCapture;
     String mCurrentPhotoPath;
     Cursor myCursor;
     List<String> path;
+    public static ArrayList<Image> images = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +38,6 @@ public class ChooseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_choose);
         initFab();
         clickListner();
-
     }
 
     public void initFab() {
@@ -54,44 +45,32 @@ public class ChooseActivity extends AppCompatActivity {
         gallaryBtn = findViewById(R.id.gallary);
     }
 
-    private Observable<List<Image>> getImagePickerObservable() {
-        return RxImagePicker.getInstance()
-                .start(this, ImagePicker.create(this));
-    }
-
-
     public void clickListner() {
         camBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    ImagePicker.cameraOnly().start(ChooseActivity.this);
+                ImagePicker.with(ChooseActivity.this)
+                        .setCameraOnly(true)
+                        .start();
             }
         });
 
         gallaryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    isMenuClicked = false;
-                    images = new ArrayList<>();
-                    ImagePicker imagePicker = ImagePicker.create((Activity)ChooseActivity.this)
-                            .language("in")
-                            .theme(R.style.ImagePickerTheme)
-                            .returnMode(returnAfterCapture ? ReturnMode.ALL : ReturnMode.NONE)
-                            .folderMode(true).includeVideo(false)
-                            .toolbarArrowColor(-1)
-                            .toolbarFolderTitle("Folder")
-                            .toolbarImageTitle("Tap to select");
-                            imagePicker.toolbarArrowColor(Color.WHITE)
-                            .includeVideo(false)
-                            .single()
-                            .multi()
-                            .limit(5)
-                            .showCamera(true)
-                            .imageDirectory("Camera")
-                                    .imageFullDirectory(Environment.getExternalStorageDirectory().getPath())
-                            .origin(images)
-                            .exclude(images)
-                            .enableLog(false).start();
+                ImagePicker.with(ChooseActivity.this)
+                        .setFolderMode(true)
+                        .setToolbarColor("#008577")
+                        .setStatusBarColor("#008577")
+                        .setFolderTitle("Album")
+                        .setMultipleMode(true)
+                        .setSelectedImages(images)
+                        .setMaxSize(5)
+                        .setBackgroundColor("#ffffff")
+                        .setAlwaysShowDoneButton(true)
+                        .setRequestCode(0)
+                        .setKeepScreenOn(true)
+                        .start();
             }
         });
     }
@@ -140,7 +119,7 @@ public class ChooseActivity extends AppCompatActivity {
                 return;
             }
         }
-        if (i == 0 && i2 == -1) {
+        if (i == 0 && i2 == -1 && intent != null) {
             try {
                 String[] strArr = {"_id", "_data"};
                 myCursor = getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, strArr, null, null, "_id DESC");
@@ -167,13 +146,11 @@ public class ChooseActivity extends AppCompatActivity {
         }
         Intent intent4 = new Intent(this, DisplaySelectedImageActivity.class);
         intent4.putExtra("Images", "Album");
-        if (ImagePicker.shouldHandle(i, i2, intent)) {
-            images = (ArrayList) ImagePicker.getImages(intent);
-            path = new ArrayList();
-            printImages(images);
-            intent4.putStringArrayListExtra("Gallary_Image", (ArrayList) path);
-            startActivityForResult(intent4, 0);
-        }
+        images = intent.getParcelableArrayListExtra(Config.EXTRA_IMAGES);
+        path = new ArrayList();
+        printImages(images);
+        intent4.putStringArrayListExtra("Gallary_Image", (ArrayList) path);
+        startActivityForResult(intent4, 0);
         super.onActivityResult(i, i2, intent);
     }
 

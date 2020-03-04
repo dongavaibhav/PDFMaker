@@ -37,7 +37,6 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory">
 
-        <activity android:name=".PdfViewer"></activity>
         <activity
             android:name=".ChooseActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -56,23 +55,10 @@
         <activity
             android:name=".DisplaySelectedImageActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".GeneratedPdfs"
-            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="com.example.makerpdf.easyphotopicker.fileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true"
-            android:readPermission="com.example.makerpdf.provider.READ">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
-        </provider>
 
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"

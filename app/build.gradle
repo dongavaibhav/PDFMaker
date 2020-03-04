@@ -29,15 +29,15 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'com.google.android.material:material:1.0.0'
 
-    implementation 'com.github.esafirm.android-image-picker:imagepicker:1.13.1'
-    implementation 'com.github.esafirm.android-image-picker:rximagepicker:1.13.1'
+//    implementation 'com.github.esafirm.android-image-picker:imagepicker:1.13.1'
+//    implementation 'com.github.esafirm.android-image-picker:rximagepicker:1.13.1'
     implementation 'com.github.javiersantos:BottomDialogs:1.2.1'
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
     implementation 'com.github.yukuku:ambilwarna:2.0.1'
 
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.1.4'
-
+    implementation project(':imagepicker')
     implementation 'com.daimajia.numberprogressbar:library:1.4@aar'
     implementation 'com.itextpdf:itextpdf:5.5.13.1'
     implementation 'com.agrawalsuneet.androidlibs:loaderspack:1.2.3'

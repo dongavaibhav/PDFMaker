@@ -38,20 +38,7 @@ public class GeneratedPdfAdapter extends Adapter<GeneratedPdfAdapter.GeneratedPd
             pdfname = (TextView) view.findViewById(R.id.pdfname);
             pdfsize = (TextView) view.findViewById(R.id.pdfsize);
             pdfdate = (TextView) view.findViewById(R.id.date);
-
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    openPDFView(user.getPdf_path());
-                }
-            });
         }
-    }
-
-    private void openPDFView(String pdf_path) {
-        Intent intent = new Intent(context, PdfViewer.class);
-        intent.putExtra("PATH", pdf_path);
-        context.startActivity(intent);
     }
 
     public GeneratedPdfAdapter(ArrayList<PdfDirc> arrayList, ArrayList<Integer> arrayList2, Context context2) {

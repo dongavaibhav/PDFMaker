@@ -4,6 +4,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_open"
+        android:icon="@drawable/image_open"
+        android:title="@string/action_delete"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_camera"
+        android:icon="@drawable/ic_camera"
+        android:title="@string/action_delete"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/action_create_pdf"
         android:icon="@drawable/action_done"
         android:title="@string/action_delete"

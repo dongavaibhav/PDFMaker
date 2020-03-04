@@ -18,7 +18,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore.Images.Media;
 
-import com.esafirm.imagepicker.features.ImagePicker;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
@@ -46,6 +45,8 @@ import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.nguyenhoanglam.imagepicker.model.Config;
+import com.nguyenhoanglam.imagepicker.ui.imagepicker.ImagePicker;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.ByteArrayOutputStream;
@@ -139,9 +140,7 @@ public class DisplaySelectedImageActivity extends AppCompatActivity {
 //            pageSize.setBackgroundColor(new BaseColor(84, 141, 212));
 
             Rectangle pageSize = new Rectangle(PageSize.A4);
-
-                pageSize.setBackgroundColor(Global.getInstance().getColor());
-
+            pageSize.setBackgroundColor(Global.getInstance().getColor());
             Document document = new Document(pageSize);
 
             try {
@@ -316,7 +315,7 @@ public class DisplaySelectedImageActivity extends AppCompatActivity {
     }
 
     private void setupRecycler() {
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,3);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
         gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
         mImageSampleRecycler.setLayoutManager(gridLayoutManager);
         mImageSampleRecycler.setNestedScrollingEnabled(true);
@@ -472,13 +471,40 @@ public class DisplaySelectedImageActivity extends AppCompatActivity {
         }
     }
 
+    boolean returnAfterCapture;
+    private Uri fileUri;
+
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         int itemId = menuItem.getItemId();
         if (itemId == R.id.action_create_pdf) {
             createPdf();
             return true;
+        } else if (itemId == R.id.action_open) {
+            if (this.isOpenGallery) {
+                this.isOpenGallery = false;
+                ImagePicker.with(DisplaySelectedImageActivity.this)
+                        .setFolderMode(true)
+                        .setToolbarColor("#008577")
+                        .setStatusBarColor("#008577")
+                        .setFolderTitle("Album")
+                        .setMultipleMode(true)
+                        .setSelectedImages(ChooseActivity.images)
+                        .setMaxSize(5)
+                        .setBackgroundColor("#ffffff")
+                        .setAlwaysShowDoneButton(true)
+                        .setRequestCode(0)
+                        .setKeepScreenOn(true)
+                        .start();
+            }
+            return true;
+        } else {
+            if (itemId == R.id.action_camera) {
+                ImagePicker.with(DisplaySelectedImageActivity.this)
+                        .setCameraOnly(true)
+                        .start();
+            }
+            return super.onOptionsItemSelected(menuItem);
         }
-        return super.onOptionsItemSelected(menuItem);
     }
 
     private File createImageFile() throws IOException {
@@ -504,14 +530,13 @@ public class DisplaySelectedImageActivity extends AppCompatActivity {
         sb.append(isOpenGallery);
         sb.append("");
         Log.e("Called==", sb.toString());
-        if (i == 100 && i2 == -1) {
+        if (i == 0 && i2 == -1) {
             imageuri.add(mCurrentPhotoPath);
             adapter.notifyDataSetChanged();
         }
-        if (ImagePicker.shouldHandle(i, i2, intent)) {
-            ChooseActivity.images = (ArrayList) ImagePicker.getImages(intent);
-            printImages(ChooseActivity.images);
-        }
+        ChooseActivity.images = intent.getParcelableArrayListExtra(Config.EXTRA_IMAGES);
+        printImages(ChooseActivity.images);
+
         if (i == 0 && i2 == -1) {
             String[] strArr = {"_id", "_data"};
             myCursor = getContentResolver().query(Media.EXTERNAL_CONTENT_URI, strArr, null, null, "_id DESC");
@@ -529,11 +554,11 @@ public class DisplaySelectedImageActivity extends AppCompatActivity {
         }
     }
 
-    private void printImages(ArrayList<com.esafirm.imagepicker.model.Image> list) {
+    private void printImages(ArrayList<com.nguyenhoanglam.imagepicker.model.Image> list) {
         if (list != null) {
             int size = list.size();
             for (int i = 0; i < size; i++) {
-                imageuri.add(((com.esafirm.imagepicker.model.Image) list.get(i)).getPath());
+                imageuri.add(((com.nguyenhoanglam.imagepicker.model.Image) list.get(i)).getPath());
             }
             adapter.notifyDataSetChanged();
         }
