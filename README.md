@@ -1,6 +1,6 @@
 Image To PDF Converter
 
-<img src="https://user-images.githubusercontent.com/60879476/75871186-2fb52d80-5e32-11ea-9cf1-0e91327675e9.png" width="300" alt="Game View" align="left" hspace="16">
+<img src="https://user-images.githubusercontent.com/60879476/75871186-2fb52d80-5e32-11ea-9cf1-0e91327675e9.png" width="300" alt="Game View" align="left" hspace="16" name="Navigation Drawer">
 
 <img src="https://user-images.githubusercontent.com/60879476/75871249-452a5780-5e32-11ea-9413-90f1eadd72d8.png" width="300" alt="Game View" align="left" hspace="16">
 
